@@ -1,5 +1,5 @@
 import json
-import requests
+import grequests
 import feedparser
 from model.score import LiveScore
 
@@ -12,10 +12,10 @@ class LiveFeedParser:
         response = feedparser.parse(self.url)
         match_feeds = response['entries']
         live_scores = []
-        for match_feed in match_feeds:
-            response = requests.get(match_feed['id'].replace('html', 'json'))
+        responses = (grequests.get(match_feed['id'].replace('html', 'json')) for match_feed in match_feeds)
+        for response in grequests.map(responses):
             match = json.loads(response.content)
-            live_score = LiveScore(match_feed['summary'], match['match'])
+            live_score = LiveScore(match)
             live_scores.append(live_score)
         return live_scores
 
@@ -25,4 +25,4 @@ class LiveFeedParser:
 
 feed_parser = LiveFeedParser('http://static.cricinfo.com/rss/livescores.xml')
 for score in feed_parser.get_international():
-    print (score.description + '\t' + score.summary()).expandtabs(10)
+    print (score.description + '\n\t' + score.status() + '\n\t' + score.summary())
