@@ -1,7 +1,9 @@
 import json
-import grequests
+
 import feedparser
-from model.score import LiveScore
+import grequests
+
+from score import LiveScore
 
 
 class LiveFeedParser:
@@ -21,8 +23,3 @@ class LiveFeedParser:
 
     def get_international(self):
         return [live_score for live_score in self.get_all() if live_score.is_international()]
-
-
-feed_parser = LiveFeedParser('http://static.cricinfo.com/rss/livescores.xml')
-for score in feed_parser.get_international():
-    print (score.description + '\n\t' + score.status() + '\n\t' + score.summary())

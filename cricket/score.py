@@ -5,7 +5,9 @@ class LiveScore:
         self.details = match_details['match']
 
     def is_international(self):
-        return self.details['international_valid'] == '1'
+        if 'international_valid' in self.details:
+            return self.details['international_valid'] == '1'
+        return False
 
     def status(self):
         return self.live['status']
