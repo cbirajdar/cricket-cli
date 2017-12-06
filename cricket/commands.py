@@ -1,18 +1,23 @@
 import argparse
 
 from live_feed import LiveFeedParser
+from colorclass import Color
 from terminaltables import SingleTable
 
 
 def get_scores():
     feed_parser = LiveFeedParser('http://static.cricinfo.com/rss/livescores.xml')
+    live_scores = []
     for score in feed_parser.get_international():
-        live_score = [['Match', score.description], ['Status', score.status()], ['Score', score.summary()]]
-        table = SingleTable(live_score)
-        table.inner_heading_row_border = True
-        table.inner_row_border = True
-        table.justify_columns = {0: 'center', 1: 'center', 2: 'center'}
-        print table.table
+        live_scores.append([Color('{red}Match{/red}'), score.description])
+        live_scores.append([Color('{green}Status{/green}'), score.status()])
+        live_scores.append([Color('{blue}Summary{/blue}'), score.summary()])
+
+    table = SingleTable(live_scores)
+    table.inner_heading_row_border = True
+    table.inner_row_border = True
+    table.justify_columns = {0: 'center', 1: 'center', 2: 'center'}
+    print table.table
 
 
 def get_rankings():
