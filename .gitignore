@@ -8,3 +8,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
+#  Distribution / packaging
+build
+cric-venv
+*.egg
+*.egg-info
+dist
