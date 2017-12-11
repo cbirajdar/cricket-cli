@@ -3,19 +3,18 @@ class LiveScore:
         self.description = match_details['description']
         self.live = match_details['live']
         self.details = match_details['match']
+        self.summary = match_details['summary']
 
     def is_international(self):
         if 'international_valid' in self.details:
             return self.details['international_valid'] == '1'
         return False
 
+    def current_summary(self):
+        return self.details.get('current_summary', self.summary)
+
     def status(self):
         return self.live['status']
-
-    def summary(self):
-        if self.details['live_match'] == 'Y':
-            return self.details['current_summary']
-        return 'N/A'
 
     def location(self):
         return self.details['ground_name']

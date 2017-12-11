@@ -9,10 +9,8 @@ class IccRankingsParser:
         self.url = rankings_url
 
     def team_standings(self):
-        standings_page = urllib2.urlopen(self.url)
-        standings = BeautifulSoup(standings_page, 'html.parser')
-        container = standings.find('div', attrs={'class': 'ciPhotoContainer'})
-        championships = [championship.text for championship in container.findAll('h3')]
+        container = self._get_rankings_container()
+        categories = [category.text for category in container.findAll('h3')]
         tables = container.findAll('table', attrs={'class': 'StoryengineTable'})
         standings_data = []
         for table in tables:
@@ -24,12 +22,10 @@ class IccRankingsParser:
                 cols = [data.text for data in row.findAll('td')]
                 table_data.append([data for data in cols if data])
             standings_data.append(table_data)
-        return OrderedDict(zip(championships, standings_data))
+        return OrderedDict(zip(categories, standings_data))
 
     def player_rankings(self):
-        rankings_page = urllib2.urlopen(self.url)
-        rankings = BeautifulSoup(rankings_page, 'html.parser')
-        container = rankings.find('div', attrs={'class': 'ciPhotoContainer'})
+        container = self._get_rankings_container()
         categories = [category.text for category in container.findAll('h3')]
         iframes = container.findAll('iframe')
         ranking_sources = (grequests.get(url) for url in [iframe.attrs['src'] for iframe in iframes])
@@ -37,9 +33,14 @@ class IccRankingsParser:
         for ranking_source in grequests.map(ranking_sources):
             table = BeautifulSoup(ranking_source.content, 'html.parser').find('table', attrs={'class': 'ratingstable'})
             table_data = [['Rank', 'Name', 'Country', 'Rating']]
-            rows = table.findAll('tr')
+            rows = table.findAll('tr', attrs={'class': 'rankings'})
             for row in rows:
                 cols = [data.text for data in row.findAll('td')]
                 table_data.append([data for data in cols if data])
             ranking_data.append(table_data)
         return OrderedDict(zip(categories, ranking_data))
+
+    def _get_rankings_container(self):
+        rankings_page = urllib2.urlopen(self.url)
+        rankings = BeautifulSoup(rankings_page, 'html.parser')
+        return rankings.find('div', attrs={'class': 'ciPhotoContainer'})
