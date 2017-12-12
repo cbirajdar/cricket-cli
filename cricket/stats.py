@@ -1,4 +1,6 @@
 import argparse
+from .live_feed import LiveFeedParser
+from .rankings import IccRankingsParser
 from terminaltables import AsciiTable
 
 LIVE_FEED_URL = 'http://static.cricinfo.com/rss/livescores.xml'
@@ -7,7 +9,6 @@ TEAM_STANDINGS_URL = 'http://www.espncricinfo.com/rankings/content/page/211271.h
 
 
 def get_scores():
-    from live_feed import LiveFeedParser
     feed_parser = LiveFeedParser(LIVE_FEED_URL)
     live_feeds = feed_parser.get_international_scores()
     if len(live_feeds) == 0:
@@ -17,7 +18,7 @@ def get_scores():
     for feed in live_feeds:
         live_scores.append(['Match', feed.description])
         live_scores.append(['Status', feed.status()])
-        live_scores.append(['Summary', feed.current_summary()])
+        live_scores.append(['Summary', feed.summary()])
         if feed != live_feeds[-1]:
             live_scores.append([])
     table = AsciiTable(live_scores)
@@ -28,20 +29,19 @@ def get_scores():
 
 def get_rankings():
     rankings = _get_rankings_parser(PLAYER_RANKINGS_URL).player_rankings()
-    for category, ranking in rankings.iteritems():
+    for category, ranking in rankings.items():
         table = AsciiTable(ranking, category)
         print(table.table)
 
 
 def get_standings():
     standings = _get_rankings_parser(TEAM_STANDINGS_URL).team_standings()
-    for championship, standing in standings.iteritems():
+    for championship, standing in standings.items():
         table = AsciiTable(standing, championship)
         print(table.table)
 
 
 def _get_rankings_parser(url):
-    from rankings import IccRankingsParser
     return IccRankingsParser(url)
 
 

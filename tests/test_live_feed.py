@@ -1,7 +1,7 @@
 import unittest
 
 from cricket.live_feed import LiveFeedParser
-from cricket.commands import LIVE_FEED_URL
+from cricket.stats import LIVE_FEED_URL
 
 
 class LiveFeedParserTestCase(unittest.TestCase):
@@ -17,4 +17,4 @@ class LiveFeedParserTestCase(unittest.TestCase):
         for live_score in live_scores:
             self.assertIsNotNone(live_score.description)
             self.assertIsNotNone(live_score.status())
-            self.assertIsNotNone(live_score.current_summary())
+            self.assertIsNotNone(live_score.summary())

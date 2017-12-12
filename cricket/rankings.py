@@ -1,4 +1,4 @@
-import urllib2
+import requests
 import grequests
 from bs4 import BeautifulSoup
 from collections import OrderedDict
@@ -41,6 +41,6 @@ class IccRankingsParser:
         return OrderedDict(zip(categories, ranking_data))
 
     def _get_rankings_container(self):
-        rankings_page = urllib2.urlopen(self.url)
+        rankings_page = requests.get(self.url).content
         rankings = BeautifulSoup(rankings_page, 'html.parser')
         return rankings.find('div', attrs={'class': 'ciPhotoContainer'})

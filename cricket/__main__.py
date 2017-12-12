@@ -1,8 +1,8 @@
-import commands
+from .stats import parse_args
 
 
 def main():
-    args = commands.parse_args()
+    args = parse_args()
     args.func()
 
 

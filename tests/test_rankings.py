@@ -1,14 +1,14 @@
 import unittest
 
 from cricket.rankings import IccRankingsParser
-from cricket.commands import TEAM_STANDINGS_URL
-from cricket.commands import PLAYER_RANKINGS_URL
+from cricket.stats import TEAM_STANDINGS_URL
+from cricket.stats import PLAYER_RANKINGS_URL
 
 
 class IccRankingsParserTestCase(unittest.TestCase):
     def test_team_standing(self):
         standings = IccRankingsParser(TEAM_STANDINGS_URL).team_standings()
-        for championship in standings.iterkeys():
+        for championship in standings.keys():
             self.assertTrue(championship in self._icc_championships())
 
     @staticmethod
@@ -22,7 +22,7 @@ class IccRankingsParserTestCase(unittest.TestCase):
 
     def test_player_rankings(self):
         rankings = IccRankingsParser(PLAYER_RANKINGS_URL).player_rankings()
-        for category in rankings.iterkeys():
+        for category in rankings.keys():
             self.assertTrue(category in self._icc_player_ranking_categories())
 
     @staticmethod
