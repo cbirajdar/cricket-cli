@@ -1,8 +1,12 @@
 from setuptools import setup
 
+with open('requirements.txt') as f:
+    install_requires = f.read().splitlines()
+
 setup(
     name='cricket-cli',
     description='Command-line interface for cricket fans',
+    long_description=open('README.rst').read(),
     version='1.0.0',
     packages=['cricket'],
     url='http://github.com/cbirajdar/cricket-cli',
@@ -17,16 +21,10 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 2.8',
         'Programming Language :: Python :: 2.9',
-        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    install_requires=[
-        'grequests',
-        'feedparser',
-        'beautifulsoup4',
-        'terminaltables'
-    ],
+    install_requires=install_requires,
     entry_points={
         "console_scripts": ['cricket = cricket.__main__:main'],
     }
