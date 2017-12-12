@@ -1,7 +1,11 @@
 from setuptools import setup
 
-with open('requirements.txt') as f:
-    install_requires = f.read().splitlines()
+install_requires = [
+    "grequests==0.3.0",
+    "feedparser==5.2.1",
+    "beautifulsoup4==4.6.0",
+    "terminaltables==3.1.0"
+]
 
 setup(
     name='cricket-cli',
@@ -19,8 +23,6 @@ setup(
         'Natural Language :: English',
         'License :: MIT',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 2.8',
-        'Programming Language :: Python :: 2.9',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
