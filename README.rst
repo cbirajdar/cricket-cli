@@ -1,6 +1,9 @@
 cricket-cli
 ===========
 
+.. image:: https://travis-ci.org/cbirajdar/cricket-cli.svg
+    :target: https://travis-ci.org/cbirajdar/cricket-cli
+
 Command line interface for cricket enthusiasts
 
 
