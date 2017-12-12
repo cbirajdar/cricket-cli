@@ -1,5 +1,4 @@
 import argparse
-from colorclass import Color
 from terminaltables import AsciiTable
 
 LIVE_FEED_URL = 'http://static.cricinfo.com/rss/livescores.xml'
@@ -16,9 +15,9 @@ def get_scores():
         return
     live_scores = []
     for feed in live_feeds:
-        live_scores.append([Color('{red}Match{/red}'), feed.description])
-        live_scores.append([Color('{green}Status{/green}'), feed.status()])
-        live_scores.append([Color('{blue}Summary{/blue}'), feed.current_summary()])
+        live_scores.append(['Match', feed.description])
+        live_scores.append(['Status', feed.status()])
+        live_scores.append(['Summary', feed.current_summary()])
         if feed != live_feeds[-1]:
             live_scores.append([])
     table = AsciiTable(live_scores)

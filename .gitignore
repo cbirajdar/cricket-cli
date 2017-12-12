@@ -15,3 +15,7 @@ cric-venv
 *.egg
 *.egg-info
 dist
+
+# Tox
+.cache
+.tox
