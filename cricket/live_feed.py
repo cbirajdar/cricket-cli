@@ -23,7 +23,7 @@ class LiveFeedParser:
         live_scores = []
         responses = (grequests.get(match_feed['id'].replace('html', 'json')) for match_feed in match_feeds)
         for response in grequests.map(responses):
-            match = json.loads(response.content)
+            match = response.json()
             live_score = LiveScore(match)
             live_scores.append(live_score)
         return live_scores

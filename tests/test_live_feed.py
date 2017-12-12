@@ -9,7 +9,7 @@ class LiveFeedParserTestCase(unittest.TestCase):
         live_scores = LiveFeedParser(LIVE_FEED_URL).get_all_scores()
         self._assert_scores(live_scores)
 
-    def test_get_all_international_scores(self):
+    def test_get_international_scores(self):
         live_scores = LiveFeedParser(LIVE_FEED_URL).get_international_scores()
         self._assert_scores(live_scores)
 
