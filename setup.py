@@ -9,9 +9,9 @@ install_requires = [
 
 setup(
     name='cricket-cli',
-    description='Command-line interface for cricket fans',
+    description='Command-line interface for cricket enthusiasts',
     long_description=open('README.rst').read(),
-    version='1.0.0',
+    version='1.0.0b2',
     packages=['cricket'],
     url='http://github.com/cbirajdar/cricket-cli',
     author='Chetan Birajdar',

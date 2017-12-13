@@ -9,10 +9,15 @@ TEAM_STANDINGS_URL = 'http://www.espncricinfo.com/rankings/content/page/211271.h
 
 
 def get_scores():
-    feed_parser = LiveFeedParser(LIVE_FEED_URL)
-    live_feeds = feed_parser.get_international_scores()
+    live_feeds = LiveFeedParser(LIVE_FEED_URL).get_all_scores()
+    # Sort scores to show international scores first
+    live_feeds = sorted(live_feeds, key=lambda live_feed: ~live_feed.is_international())
+    _print_scores(live_feeds)
+
+
+def _print_scores(live_feeds):
     if len(live_feeds) == 0:
-        print('No live international matches at this time')
+        print('No live matches at this time')
         return
     live_scores = []
     for feed in live_feeds:
@@ -49,10 +54,7 @@ def _get_rankings_parser(url):
 def parse_args():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers()
-    scores = subparsers.add_parser('scores', help='Live cricket scores')
-    scores.set_defaults(func=get_scores)
-    rankings = subparsers.add_parser('rankings', help='ICC player rankings')
-    rankings.set_defaults(func=get_rankings)
-    standings = subparsers.add_parser('standings', help='ICC team standings')
-    standings.set_defaults(func=get_standings)
+    subparsers.add_parser('scores', help='Live cricket scores').set_defaults(func=get_scores)
+    subparsers.add_parser('rankings', help='ICC player rankings').set_defaults(func=get_rankings)
+    subparsers.add_parser('standings', help='ICC team standings').set_defaults(func=get_standings)
     return parser.parse_args()

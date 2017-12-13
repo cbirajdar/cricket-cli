@@ -9,9 +9,7 @@ class LiveScore:
         self.innings = match_details['innings']
 
     def is_international(self):
-        if 'international_valid' in self.details:
-            return self.details['international_valid'] == '1'
-        return False
+        return True if self.details.get('international_class_card') else False
 
     def summary(self):
         summary = self._innings_summary()
