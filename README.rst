@@ -15,6 +15,13 @@ Installation
 
 pip install cricket-cli
 
+
+Demo
+----
+
+.. image:: https://github.com/cbirajdar/cricket-cli/blob/master/cricket-cli.gif
+
+
 Usage
 -----
 
