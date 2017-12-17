@@ -13,7 +13,7 @@ class LiveScore:
 
     def summary(self):
         summary = self._innings_summary()
-        summary.append(self.details.get('current_summary'))
+        summary.append(self.details.get('current_summary') or '')
         return '\n'.join(summary) if filter(None, summary) else 'N/A'
 
     def status(self):

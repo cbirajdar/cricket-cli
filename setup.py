@@ -11,7 +11,7 @@ setup(
     name='cricket-cli',
     description='Command-line interface for cricket enthusiasts',
     long_description=open('README.rst').read(),
-    version='1.0.0b2',
+    version='1.0.0b3',
     packages=['cricket'],
     url='http://github.com/cbirajdar/cricket-cli',
     author='Chetan Birajdar',
