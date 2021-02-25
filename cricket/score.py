@@ -30,8 +30,8 @@ class LiveScore:
         team_names = self._get_team_names()
         for inning in self.innings:
             if inning['innings_number'] != "0":
-                score = inning['runs'] + '/' + inning['wickets']
-                team = team_names[inning['batting_team_id']]
+                score = str(inning['runs']) + '/' + str(inning['wickets'])
+                team = team_names[str(inning['batting_team_id'])]
                 innings_scores.setdefault(team, []).append(score)
         return innings_scores
 
